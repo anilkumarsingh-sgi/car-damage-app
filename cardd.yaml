@@ -1,0 +1,23 @@
+# CarDD Data Configuration for YOLO Training
+
+# Dataset paths
+path: CarDD_release/CarDD_COCO  # dataset root dir
+train: train2017  # train images (relative to 'path')
+val: val2017  # val images (relative to 'path')
+test: test2017  # test images (relative to 'path')
+
+# Classes
+names:
+  0: dent
+  1: scratch
+  2: crack
+  3: glass shatter
+  4: lamp broken
+  5: tire flat
+
+# Number of classes
+nc: 6
+
+# Download script (optional)
+# download: |
+#   echo "Dataset should be placed in CarDD_release/CarDD_COCO/"

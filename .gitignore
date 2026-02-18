@@ -1,0 +1,54 @@
+# Virtual environment
+damage/
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Large dataset files (not needed for cloud app)
+CarDD_release/
+data/
+checkpoints/
+
+# Training runs (large files)
+runs/
+wandb/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+Untitled-1.ipynb
+*.ipynb
+
+# Large model files in root (keep models/best.pt via LFS)
+/*.pt
+resnet50-19c8e357.pth
+
+# Temp files
+*.tmp
+*.log
+outputs/
+
+# Analysis images
+dataset_analysis_*.png
+
+# PDF docs
+*.pdf
+
+# Keep models/ folder (tracked via Git LFS)
+!models/
+!models/best.pt

@@ -1,0 +1,147 @@
+augmentation:
+  train:
+  - p: 0.5
+    type: HorizontalFlip
+  - p: 0.2
+    type: VerticalFlip
+  - p: 0.3
+    type: RandomRotate90
+  - p: 0.5
+    rotate_limit: 30
+    scale_limit: 0.2
+    shift_limit: 0.1
+    type: ShiftScaleRotate
+  - brightness_limit: 0.2
+    contrast_limit: 0.2
+    p: 0.5
+    type: RandomBrightnessContrast
+  - hue_shift_limit: 20
+    p: 0.3
+    sat_shift_limit: 30
+    type: HueSaturationValue
+    val_shift_limit: 20
+  - p: 0.2
+    type: GaussNoise
+    var_limit:
+    - 10
+    - 50
+  - blur_limit: 3
+    p: 0.2
+    type: Blur
+  - p: 0.2
+    type: CLAHE
+  - max_height: 32
+    max_holes: 8
+    max_width: 32
+    p: 0.3
+    type: CoarseDropout
+  val:
+  - height: 640
+    type: Resize
+    width: 640
+dataset:
+  classes:
+  - dent
+  - scratch
+  - crack
+  - glass shatter
+  - lamp broken
+  - tire flat
+  coco_dir: CarDD_release/CarDD_COCO
+  name: CarDD
+  num_classes: 6
+  root_dir: CarDD_release
+  sod_dir: CarDD_release/CarDD_SOD
+  test_ann: CarDD_release/CarDD_COCO/annotations/instances_test2017.json
+  test_img_dir: CarDD_release/CarDD_COCO/test2017
+  train_ann: CarDD_release/CarDD_COCO/annotations/instances_train2017.json
+  train_img_dir: CarDD_release/CarDD_COCO/train2017
+  val_ann: CarDD_release/CarDD_COCO/annotations/instances_val2017.json
+  val_img_dir: CarDD_release/CarDD_COCO/val2017
+evaluation:
+  conf_threshold: 0.25
+  iou_thresholds:
+  - 0.5
+  - 0.55
+  - 0.6
+  - 0.65
+  - 0.7
+  - 0.75
+  - 0.8
+  - 0.85
+  - 0.9
+  - 0.95
+  metrics:
+  - AP
+  - AP50
+  - AP75
+  - mAP
+  - precision
+  - recall
+  - f1_score
+  nms_threshold: 0.45
+inference:
+  conf_threshold: 0.25
+  font_scale: 0.5
+  iou_threshold: 0.45
+  line_thickness: 2
+  output_dir: outputs
+  save_visualizations: true
+  show_conf: true
+  show_labels: true
+logging:
+  experiment_name: yolov8x_experiment
+  log_images: true
+  log_interval: 10
+  num_log_images: 16
+  project_name: CarDD-Detection
+  tensorboard_dir: runs
+  use_tensorboard: true
+  use_wandb: true
+model:
+  architecture: yolov8
+  backbone: yolov8x
+  detr:
+    hidden_dim: 256
+    nheads: 8
+    num_decoder_layers: 6
+    num_encoder_layers: 6
+    num_queries: 300
+  mask_rcnn:
+    backbone: resnet101
+    fpn: true
+    max_size: 1333
+    min_size: 800
+  pretrained: true
+  use_segmentation: true
+  yolo:
+    conf_threshold: 0.25
+    img_size: 640
+    iou_threshold: 0.45
+    max_det: 300
+training:
+  batch_size: 16
+  device: cuda
+  epochs: 100
+  gradient_clip: 10.0
+  loss:
+    box_weight: 5.0
+    cls_weight: 1.0
+    obj_weight: 1.0
+    seg_weight: 1.0
+  min_delta: 0.001
+  num_workers: 4
+  optimizer:
+    lr: 0.001
+    momentum: 0.9
+    type: AdamW
+    weight_decay: 0.0001
+  patience: 20
+  save_best_only: false
+  save_dir: checkpoints
+  save_period: 5
+  scheduler:
+    min_lr: 1.0e-05
+    type: cosine
+    warmup_epochs: 3
+  use_amp: true
